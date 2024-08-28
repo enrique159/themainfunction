@@ -10,7 +10,7 @@
 const items = [
   [
     {
-      label: 'Profile',
+      label: 'Your profile',
       avatar: {
         src: '~/assets/profile_avatar.avif',
       },
@@ -19,7 +19,7 @@ const items = [
   [
     {
       label: 'Edit',
-      icon: 'i-heroicons-pencil-square-20-solid',
+      icon: 'i-heroicons-cog',
       shortcuts: ['E'],
       click: () => {
         console.log('Edit')
@@ -59,6 +59,7 @@ const items = [
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid transparent;
+  outline: 2px solid transparent;
   img {
     width: 100%;
     height: 100%;

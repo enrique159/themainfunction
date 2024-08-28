@@ -25,15 +25,14 @@
 </template>
 
 <script lang="ts" setup>
-import { IconHome, IconBrandSafari, IconCircles, IconMessageCircle, IconInbox, IconSettings } from '@tabler/icons-vue'
+import { IconHome, IconBrandSafari, IconCircles, IconMessageCircle, IconInbox } from '@tabler/icons-vue'
 
 const menuOptions = reactive([
   { name: 'Home', icon: IconHome, to: '/' },
   { name: 'Explore', icon: IconBrandSafari, to: '/explore' },
   { name: 'Projects', icon: IconCircles, to: '/projects' },
   { name: 'Messages', icon: IconMessageCircle, to: '/messages' },
-  { name: 'Notifications', icon: IconInbox, to: '/notifications' },
-  { name: 'Settings', icon: IconSettings, to: '/settings' },
+  { name: 'Inbox', icon: IconInbox, to: '/inbox' },
 ])
 
 const route = useRoute()

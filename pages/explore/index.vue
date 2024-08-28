@@ -1,12 +1,12 @@
 <template>
   <div>
-    hello
+    <span>explore</span>
   </div>
 </template>
 
 <script lang="ts" setup>
 useSeoMeta({
-  title: 'Home / (themainfunction)',
+  title: 'Explore / (themainfunction)',
   description: 'Home page',
   keywords: 'home, page',
 })
