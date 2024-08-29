@@ -2,11 +2,6 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   app: { head: { link: [{ rel: 'icon', type: 'image/svg', href: '/favicon.svg' }]}},
-  runtimeConfig: {
-    public: {
-      apiBase: 'http://localhost:3333',
-    }
-  },
   pinia: {
     storesDirs: ['./stores/**'],
   },
@@ -16,6 +11,11 @@ export default defineNuxtConfig({
     preference: 'light',
   },
   vite: {
+    esbuild: {
+      supported: {
+        'top-level-await': true //browsers can handle top-level-await features
+      },
+    },
     css: {
       preprocessorOptions: {
         scss: {

@@ -7,10 +7,13 @@ export type FetchPage = {
 }
 
 export type MetaPage = {
-  endOffset: number;
-  limit: number;
-  offset: number;
-  page: number;
-  totalItems: number;
-  totalPages: number;
+  total: number;
+  perPage: number;
+  currentPage: number;
+  lastPage: number;
+  firstPage: number;
+  firstPageUrl: string;
+  lastPageUrl: string;
+  nextPageUrl: string;
+  previousPageUrl: string;
 }

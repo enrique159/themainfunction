@@ -1,0 +1,1 @@
+export type TPrivacyPostOption = 'public' | 'just-me' | 'friends'

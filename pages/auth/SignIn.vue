@@ -7,38 +7,45 @@
     </div>
     <form class="flex flex-col" @submit.prevent="handleSubmit">
       <div class="pb-2">
-        <label for="email" class="block mb-2 text-sm font-medium text-[#111827]"
-          >Email</label
-        >
+        <label for="email" class="block mb-2 text-sm font-medium text-[#111827]">
+          Email
+        </label>
         <div class="relative text-gray-400">
-          <input
+          <UInput
             v-model="email"
-            type="email"
-            name="email"
-            id="email"
-            class="pl-3 mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5 rounded-l-lg py-3 px-4"
-            placeholder="name@company.com"
-            autocomplete="off"
+            icon="i-heroicons-envelope-20-solid"
+            color="gray"
+            variant="outline"
+            placeholder="name@mail.com"
+            size="lg"
           />
         </div>
       </div>
       <div class="pb-6">
-        <label
-          for="password"
-          class="block mb-2 text-sm font-medium text-[#111827]"
-          >Password</label
-        >
+        <label for="email" class="block mb-2 text-sm font-medium text-[#111827]">
+          Password
+        </label>
         <div class="relative text-gray-400">
-          <input
+          <UInput
             v-model="password"
-            type="password"
-            name="password"
-            id="password"
+            icon="i-heroicons-lock-closed-20-solid"
+            color="gray"
+            variant="outline"
             placeholder="••••••••••"
-            class="pl-3 mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5 rounded-l-lg py-3 px-4"
-            autocomplete="new-password"
-            aria-autocomplete="list"
-          />
+            size="lg"
+            :type="showPassword ? 'text' : 'password'"
+            :ui="{ icon: { trailing: { pointer: '' } } }"
+          >
+            <template #trailing>
+              <UButton
+                color="gray"
+                variant="link"
+                :icon="showPassword ? 'i-heroicons-eye-20-solid' : 'i-heroicons-eye-slash-20-solid'"
+                :padded="false"
+                @click="showPassword = !showPassword"
+              />
+            </template>
+          </UInput>
         </div>
       </div>
       <button
@@ -61,17 +68,31 @@
 definePageMeta({
   layout: 'auth',
 })
+useSeoMeta({
+  title: 'Sign In / (themainfunction)',
+  description: 'Sign In page',
+  keywords: 'auth, signin, page',
+})
 
 const email = ref('')
 const password = ref('')
+const showPassword = ref(false)
 
 const { signIn } = useAppStore()
+const toast = useToast()
+const router = useRouter()
+
 const handleSubmit = async () => {
   await signIn({ email: email.value, password: password.value })
     .then((response) => {
-      console.log(response)
+      router.push('/')
     })
     .catch((error) => {
+      toast.add({
+        title: 'Error',
+        description: 'Invalid email or password',
+        color: 'red',
+      })
       console.error(error)
     })
 }

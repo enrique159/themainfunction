@@ -8,6 +8,7 @@ import HttpStatusCode from '../shared/enums/httpStatusCode';
 import ErrorCode from '../shared/error/ErrorCodes';
 
 const TIME_OUT = 30000
+const WITH_CREDENTIALS = true
 
 export default class Http implements IHttp {
   private axios!: AxiosInstance
@@ -38,6 +39,7 @@ export default class Http implements IHttp {
         headers: this.requestHeaders(payload?.headers ?? {}),
         timeout: payload?.timeout ?? TIME_OUT,
         data: payload?.data ?? null,
+        withCredentials: payload?.auth || WITH_CREDENTIALS,
       })
 
       return response.data
@@ -64,8 +66,9 @@ export default class Http implements IHttp {
       const response = await this.axios.post(url, payload?.data ?? null, {
         params: payload?.params,
         headers: this.requestHeaders(payload?.headers ?? {}),
-        data: payload?.data ?? null,
+        data: payload?.data ?? {},
         timeout: payload?.timeout ?? TIME_OUT,
+        withCredentials: payload?.auth || WITH_CREDENTIALS,
       })
 
       return response.data
@@ -92,8 +95,9 @@ export default class Http implements IHttp {
       const response = await this.axios.put(url, payload?.data ?? null, {
         params: payload?.params,
         headers: this.requestHeaders(payload?.headers ?? {}),
-        data: payload?.data ?? null,
+        data: payload?.data ?? {},
         timeout: payload?.timeout ?? TIME_OUT,
+        withCredentials: payload?.auth || WITH_CREDENTIALS,
       })
 
       return response.data
@@ -121,6 +125,7 @@ export default class Http implements IHttp {
         params: payload?.params,
         headers: this.requestHeaders(payload?.headers ?? {}),
         timeout: payload?.timeout ?? TIME_OUT,
+        withCredentials: payload?.auth || WITH_CREDENTIALS,
       })
 
       return response.data
@@ -147,8 +152,9 @@ export default class Http implements IHttp {
       const response = await this.axios.patch(url, {
         params: payload?.params,
         headers: this.requestHeaders(payload?.headers ?? {}),
-        data: payload?.data ?? null,
+        data: payload?.data ?? {},
         timeout: payload?.timeout ?? TIME_OUT,
+        withCredentials: payload?.auth || WITH_CREDENTIALS,
       })
 
       return response.data

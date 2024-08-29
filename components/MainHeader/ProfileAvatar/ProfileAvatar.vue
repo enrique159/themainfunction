@@ -1,35 +1,39 @@
 <template>
   <UDropdown :items="items" :popper="{ placement: 'bottom-end' }">
     <button class="profile-avatar">
-      <img src="~/assets/profile_avatar.avif" alt="ME" />
+      <img :src="user.profileAvatar" alt="ME" />
     </button>
   </UDropdown>
 </template>
 
 <script setup lang="ts">
+const { user, signOut } = useAppStore()
+const router = useRouter()
+const toast = useToast()
+
 const items = [
   [
     {
       label: 'Your profile',
       avatar: {
-        src: '~/assets/profile_avatar.avif',
+        src: user.profileAvatar,
       },
     },
   ],
   [
     {
-      label: 'Edit',
+      label: 'Settings',
       icon: 'i-heroicons-cog',
-      shortcuts: ['E'],
       click: () => {
         console.log('Edit')
       },
     },
     {
-      label: 'Duplicate',
-      icon: 'i-heroicons-document-duplicate-20-solid',
-      shortcuts: ['D'],
-      disabled: true,
+      label: 'Privacy',
+      icon: 'i-heroicons-shield-check-20-solid',
+      click: () => {
+        console.log('Privacy')
+      },
     },
   ],
   [
@@ -44,9 +48,23 @@ const items = [
   ],
   [
     {
-      label: 'Delete',
-      icon: 'i-heroicons-trash-20-solid',
-      shortcuts: ['⌘', 'D'],
+      label: 'Sign out',
+      labelClass: 'text-red-500',
+      icon: 'i-heroicons-arrow-left-start-on-rectangle-20-solid',
+      iconClass: 'text-red-400',
+      click: async () => {
+        await signOut().then(() => {
+          router.push('/auth/signin')
+        })
+        .catch((error) => {
+          toast.add({
+            title: 'Error',
+            description: 'Failed to sign out',
+            color: 'red',
+          })
+          console.error(error)
+        })
+      },
     },
   ],
 ]
@@ -58,8 +76,10 @@ const items = [
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid transparent;
+  border: 2px solid white;
   outline: 2px solid transparent;
+  background-color: $color-white-2;
+
   img {
     width: 100%;
     height: 100%;
